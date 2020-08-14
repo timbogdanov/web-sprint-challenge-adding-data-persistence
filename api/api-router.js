@@ -1,11 +1,9 @@
 const router = require('express').Router();
 
 const projectsRouter = require('./projects/projects-router');
+const resourcesRouter = require('./resources/resources-router');
 
 router.use('/projects', projectsRouter);
-
-router.get('/', (req, res) => {
-  res.status(200).json({ message: 'api up' });
-});
+router.use('/resources', resourcesRouter);
 
 module.exports = router;

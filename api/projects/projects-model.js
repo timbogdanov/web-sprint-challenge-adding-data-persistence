@@ -3,10 +3,10 @@ const db = require('../../data/db-config');
 module.exports = {
   getProjects,
   getProject,
+  addProject,
   getTasks,
   getResources,
-  addResource,
-  getAllResources,
+  addTask,
 };
 
 function getProjects() {
@@ -17,8 +17,16 @@ function getProject(id) {
   return db('projects').where({ id });
 }
 
+function addProject(data) {
+  return db('projects').insert(data);
+}
+
 function getTasks(id) {
   return db('tasks').where('project_id', '=', id);
+}
+
+function addTask(data, id) {
+  return db('tasks').where({ id }).insert(data);
 }
 
 function getResources(id) {
@@ -30,12 +38,4 @@ function getResources(id) {
       '=',
       'project_resources.resource_id'
     );
-}
-
-function addResource(data) {
-  return db('resources').insert(data);
-}
-
-function getAllResources() {
-  return db('resources');
 }

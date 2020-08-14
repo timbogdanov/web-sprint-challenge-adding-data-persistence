@@ -2,6 +2,12 @@ const router = require('express').Router();
 
 const Projects = require('./projects-model');
 
+router.post('/', (req, res) => {
+  Projects.addProject(req.body).then((projects) => {
+    res.status(200).json({ message: 'added a project' });
+  });
+});
+
 router.get('/', (req, res) => {
   Projects.getProjects().then((projects) => {
     res.status(200).json(projects);
@@ -20,20 +26,14 @@ router.get('/:id/tasks', (req, res) => {
   });
 });
 
+router.post('/:id/tasks', (req, res) => {
+  Projects.addTask(req.body, req.params.id).then((task) => {
+    res.status(200).json(task);
+  });
+});
+
 router.get('/:id/resources', (req, res) => {
   Projects.getResources(req.params.id).then((resources) => {
-    res.status(200).json(resources);
-  });
-});
-
-router.post('/resources', (req, res) => {
-  Projects.addResource(req.body).then((resource) => {
-    res.status(200).json({ message: 'added a resource' });
-  });
-});
-
-router.get('/resources', (req, res) => {
-  Projects.getAllResources().then((resources) => {
     res.status(200).json(resources);
   });
 });
