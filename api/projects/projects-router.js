@@ -20,4 +20,22 @@ router.get('/:id/tasks', (req, res) => {
   });
 });
 
+router.get('/:id/resources', (req, res) => {
+  Projects.getResources(req.params.id).then((resources) => {
+    res.status(200).json(resources);
+  });
+});
+
+router.post('/resources', (req, res) => {
+  Projects.addResource(req.body).then((resource) => {
+    res.status(200).json({ message: 'added a resource' });
+  });
+});
+
+router.get('/resources', (req, res) => {
+  Projects.getAllResources().then((resources) => {
+    res.status(200).json(resources);
+  });
+});
+
 module.exports = router;
